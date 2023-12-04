@@ -1,0 +1,32 @@
+# create your drupal and postgres config here, based off the last assignment
+# version isn't needed anymore for Compose CLI
+
+services:
+  custom-drupal:
+    build:
+      context: .
+      dockerfile: drupal.Dockerfile
+    ports:
+      - 8080:80
+    # named volumes
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-themes:/var/www/html/themes
+      - drupal-sites:/var/www/html/sites
+
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: root
+    volumes:
+      # persist database data on Compose restart
+      - drupal-data:/var/lib/postgresql/data
+
+# named volumes
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-themes:
+  drupal-sites:
+  drupal-data:

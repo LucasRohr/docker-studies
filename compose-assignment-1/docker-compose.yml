@@ -1,0 +1,25 @@
+# version isn't needed anymore for Compose CLI
+
+services:
+  drupal:
+    image: drupal:9
+    ports:
+      - 8080:80
+    # named volumes
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-themes:/var/www/html/themes
+      - drupal-sites:/var/www/html/sites
+
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: root
+
+# named volumes
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-themes:
+  drupal-sites:
